@@ -27,8 +27,6 @@ public:
         size_t msgSize = sizeof(Message) - sizeof(long);
         msg.id = id+1;
         msg.code = 222;
-        msgsnd(msqId, &msg, msgSize, 0);
-        msgrcv(msqId, &msg, msgSize, 1, 0);
         kill(pid, SIGTERM);
     }
 
@@ -39,7 +37,7 @@ public:
         return pid;
     }
 
-    int Exec(ExecuteData &exData) {
+    void Exec(ExecuteData &exData) {
         Message msg;
         size_t msgSize = sizeof(Message) - sizeof(long);
         msg.id = id+1;
@@ -50,7 +48,6 @@ public:
         SendDataMessage(msqId, id, exData);
 
         msgrcv(msqId, &msg, msgSize, 1, 0);
-        return msg.returnValue;
     }
 private:
     pid_t pid;

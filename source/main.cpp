@@ -29,6 +29,12 @@ void StartConfig(NodeVector<ManagerNode*> &mns) {
     mns.push_back(tmp);
     tmp = new ManagerNode(8082, msqId);
     mns.push_back(tmp);
+    tmp = new ManagerNode(8083, msqId);
+    mns.push_back(tmp);
+    tmp = new ManagerNode(8084, msqId);
+    mns.push_back(tmp);
+    tmp = new ManagerNode(8085, msqId);
+    mns.push_back(tmp);
 }
 void RemoveConfig(NodeVector<ManagerNode*> &mns) {
     for(size_t i = 0; i < mns.size(); ++i) {
@@ -43,7 +49,7 @@ int MainLoop(NodeVector<ManagerNode*> &mns) {
         if(command == "create") {
             std::cin >> id >> parentId;
             int index;
-            if((index = mns.ChechId(parentId)) == -1) {
+            if((index = mns.CheckId(parentId)) == -1) {
                 std::cout << "«Error: Parent not found»" << std::endl;
                 continue;
             }
@@ -56,7 +62,7 @@ int MainLoop(NodeVector<ManagerNode*> &mns) {
         } else if(command == "remove") {
             std::cin >> id >> parentId;
             int index;
-            if((index = mns.ChechId(parentId)) == -1) {
+            if((index = mns.CheckId(parentId)) == -1) {
                 std::cout << "«Error: Parent not found»" << std::endl;
                 continue;
             }
@@ -68,7 +74,7 @@ int MainLoop(NodeVector<ManagerNode*> &mns) {
         } else if(command == "exec") {
             std::cin >> id >> parentId;
             int index;
-            if((index = mns.ChechId(parentId)) == -1) {
+            if((index = mns.CheckId(parentId)) == -1) {
                 std::cout << "«Error: Parent not found»" << std::endl;
                 continue;
             }
@@ -91,9 +97,15 @@ int MainLoop(NodeVector<ManagerNode*> &mns) {
                 std::cout << "«Error: id "<< id << ": Not found»" << std::endl;
             } else if(code == 3) {
                 std::cout << "«Error: id "<< parentId << ": Not found»" << std::endl;
+            } else if(code == 4) {
+                std::cout << "«Error: Already union»" << std::endl;
+            } else if(code == 5) {
+                std::cout << "«Error: Union same nodes»" << std::endl;
             } else {
                 std::cout << "«Ok»" << std::endl;
             }
+        } else if(command == "print") {
+            mns.Print();
         }
     }
     return 0;

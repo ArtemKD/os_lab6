@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
             ReciveDataMessage(msqId, id, exData);
 
             msg.id = 1;
-            msg.returnValue = 1;
             msgsnd(msqId, &msg, msgSize, 0);
 
             for(size_t i = 0; i < 30000; ++i) {

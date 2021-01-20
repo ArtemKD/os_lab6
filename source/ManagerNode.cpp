@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
             break;
         } else if(msg.code == 1) {
             int index;
-            if((index = cns.ChechId(msg.cnId)) == -1) {
+            if((index = cns.CheckId(msg.cnId)) == -1) {
                 CalculatorNode *tmp = new CalculatorNode(msg.cnId, cns.GetMsqId());
                 cns.push_back(tmp);
                 msg.returnValue = tmp->GetPid();
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
             msgsnd(msqId, &msg, msgSize, 0);
         } else if(msg.code == 2) {
             int index;
-            if((index = cns.ChechId(msg.cnId)) == -1) {
+            if((index = cns.CheckId(msg.cnId)) == -1) {
                 msg.returnValue = 0;
             } else {
                 delete cns[index];
@@ -56,15 +56,11 @@ int main(int argc, char *argv[]) {
             ReciveDataMessage(msqId, id, exData);
 
             int index;
-            if((index = cns.ChechId(msg.cnId)) == -1) {
+            if((index = cns.CheckId(msg.cnId)) == -1) {
                 msg.returnValue = 0;
             } else {
-                int code;
-                if((code = cns[index]->Exec(exData)) == 1) {
-                    msg.returnValue = 1;
-                } else {
-                    msg.returnValue = code;
-                }
+                cns[index]->Exec(exData);
+                msg.returnValue = 1;
             }
 
             msg.id = 1;
