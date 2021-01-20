@@ -98,9 +98,9 @@ int MainLoop(NodeVector<ManagerNode*> &mns) {
             } else if(code == 3) {
                 std::cout << "«Error: id "<< parentId << ": Not found»" << std::endl;
             } else if(code == 4) {
-                std::cout << "«Error: Already union»" << std::endl;
-            } else if(code == 5) {
                 std::cout << "«Error: Union same nodes»" << std::endl;
+            } else if(code == 5) {
+                std::cout << "«Error: Already union»" << std::endl;
             } else {
                 std::cout << "«Ok»" << std::endl;
             }

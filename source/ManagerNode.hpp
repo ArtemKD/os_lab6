@@ -88,6 +88,12 @@ public:
         return msg.returnValue;
     }
     int Union(ManagerNode* mn) {
+        if(this == mn) {
+            return 4;
+        }
+        if(CheckId(mn->id) != -1) {
+            return 5;
+        }
         RecursiveUnion(mn);
         RemoveRepeatCns();
 
